@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Marketing Specialization Track</title>
+    <style>
+        /* Base Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            background: #2c3e50;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        nav button {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: background 0.3s;
+            font-size: 0.9em;
+        }
+        
+        nav button:hover, nav button.active {
+            background: #3498db;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        h2 {
+            color: #2980b9;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        
+        .page {
+            display: none;
+            background: white;
+            border-radius: 0 0 10px 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            flex-grow: 1;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .quote {
+            font-style: italic;
+            color: #7f8c8d;
+            font-size: 1.2em;
+            border-left: 4px solid #3498db;
+            padding-left: 20px;
+            margin: 20px 0;
+        }
+        
+        .highlight {
+            background-color: #f1c40f;
+            color: #2c3e50;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        li {
+            padding: 10px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        li:before {
+            content: "✓ ";
+            color: #2ecc71;
+            font-weight: bold;
+        }
+        
+        .columns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .column {
+            flex: 1;
+            min-width: 300px;
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        
+        .benefits-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .benefit-card {
+            flex: 1;
+            min-width: 200px;
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .emoji {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .cta {
+            background: linear-gradient(135deg, #FF512F 0%, #F09819 100%);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 40px 0;
+        }
+        
+        .cta h2 {
+            color: white;
+            border-bottom: none;
+        }
+        
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: auto;
+        }
+        
+        footer a {
+            color: #f1c40f;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Progress indicator for presentation */
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            background: #ecf0f1;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: #3498db;
+            width: 0;
+        }
+        
+        /* Navigation controls */
+        .nav-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .nav-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background: #2980b9;
+        }
+        
+        .nav-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+        
+        .week-box {
+            background: #ecf0f1;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        
+        .week-box h3 {
+            color: #2980b9;
+            margin-top: 0;
+            border-bottom: 1px solid #bdc3c7;
+            padding-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .column {
+                flex: 100%;
+            }
+            
+            nav {
+                overflow-x: auto;
+                justify-content: flex-start;
+            }
+            
+            nav button {
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Mobile Marketing Specialization Track</h1>
+            <p>Master Mobile-First Marketing Strategies | April-May 2025</p>
+        </header>
+        
+        <nav id="navigation">
+            <button class="nav-tab active" data-page="intro">Introduction</button>
+            <button class="nav-tab" data-page="program">Program Structure</button>
+            <button class="nav-tab" data-page="skills">Skills & Learning</button>
+            <button class="nav-tab" data-page="schedule">Weekly Schedule</button>
+            <button class="nav-tab" data-page="portfolio">Portfolio Building</button>
+            <button class="nav-tab" data-page="benefits">Benefits</button>
+            <button class="nav-tab" data-page="expectations">Expectations</button>
+        </nav>
+        
+        <!-- Page 1: Introduction -->
+        <div id="intro" class="page active">
+            <h2>Mobile Marketing: The Future Is Now</h2>
+            <div class="quote">
+                "Mobile is not the future, it is the now. Meet your customers where they are: on mobile." - Google
+            </div>
+            
+            <p>In today's digital landscape, <span class="highlight">mobile marketing expertise</span> has become essential for every business:</p>
+            
+            <ul>
+                <li><strong>70% of internet usage</strong> now happens on mobile devices</li>
+                <li><strong>Mobile commerce</strong> expected to reach $710 billion in the US by 2025</li>
+                <li><strong>92% of marketers</strong> believe mobile marketing is critical to their success</li>
+                <li><strong>Mobile-first approach</strong> is now standard practice for digital campaigns</li>
+            </ul>
+            
+            <div class="cta">
+                <h2>Mobile Marketing Specialization Track</h2>
+                <p>4-week intensive program + 2-week portfolio development</p>
+                <p>Wednesdays: April 21 – May 14, 2025 | <span class="highlight">5:30 PM – 7:00 PM</span></p>
+            </div>
+            
+            <div class="nav-controls">
+                <button class="nav-btn prev-btn" disabled>Previous</button>
+                <button class="nav-btn next-btn">Next</button>
+            </div>
+        </div>
+        
+        <!-- Page 2: Program Structure -->
+        <div id="program" class="page">
+            <h2>Program Structure</h2>
+            
+            <div class="quote">
+                "The best investment you can make is in your own skills and knowledge." - Warren Buffett
+            </div>
+            
+            <div class="columns">
+                <div class="column">
+                    <h3>Four-Week Mobile Marketing Intensive</h3>
+                    <p>Our 4-week mobile marketing program provides comprehensive training in essential mobile marketing strategies and techniques. Each session builds your expertise in a key area of mobile marketing.</p>
+                    <ul>
+                        <li><strong>Week 1:</strong> Introduction to Mobile Marketing</li>
+                        <li><strong>Week 2:</strong> SMS Marketing & Push Notifications</li>
+                        <li><strong>Week 3:</strong> Mobile Ad Strategies & App Marketing</li>
+                        <li><strong>Week 4:</strong> Building a Mobile Marketing Strategy</li>
+                    </ul>
+                </div>
+                
+                <div class="column">
+                    <h3>Two-Week Portfolio Development</h3>
+                    <p>After completing the core curriculum, you'll spend two weeks building a professional portfolio showcasing your mobile marketing skills.</p>
+                    <ul>
+                        <li><strong>Week 5:</strong> Portfolio Development Part 1</li>
+                        <li><strong>Week 5.5:</strong> Resume Optimization</li>
+                        <li><strong>Week 6:</strong> Portfolio Showcase & Final Review</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <p>By the end of the 6-week program, you'll have:</p>
+            <ul>
+                <li>Practical expertise in all aspects of mobile marketing</li>
+                <li>A professional portfolio showcasing your mobile marketing projects</li>
+                <li>A refined resume optimized for digital marketing positions</li>
+                <li>Skills to launch mobile campaigns for businesses or your own brand</li>
+                <li>Industry connections and references</li>
+            </ul>
+            
+            <div class="nav-controls">
+                <button class="nav-btn prev-btn">Previous</button>
+                <button class="nav-btn next-btn">Next</button>
+            </div>
+        </div>
+        
+        <!-- Page 3: Skills & Learning -->
+        <div id="skills" class="page">
+            <h2>What You'll Learn</h2>
+            <div class="quote">
+                "Knowledge is power, but application is mastery." - Robin Sharma
+            </div>
+            
+            <h3>Mobile Marketing Skills That Drive Results:</h3>
+            <ul>
+                <li>Creating mobile-first marketing strategies</li>
+                <li>Designing effective SMS marketing campaigns</li>
+                <li>Optimizing websites for mobile users</li>
+                <li>Crafting compelling push notifications</li>
+                <li>Developing and marketing mobile applications</li>
+                <li>Implementing location-based marketing tactics</li>
+                <li>Measuring mobile marketing performance</li>
+            </ul>
+            
+            <h3>Mobile Marketing Career Opportunities</h3>
+            <div class="benefits-list">
+                <div class="benefit-card">
+                    <div class="emoji">📱</div>
+                    <p>Mobile Marketing Specialist</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="emoji">🔔</div>
+                    <p>Push Notification Strategist</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="emoji">📊</div>
+                    <p>Mobile Analytics Expert</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="emoji">📲</div>
+                    <p>App Store Optimization Specialist</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="emoji">📍</div>
+                    <p>Location-Based Marketing Consultant</p>
+                </div>
+            </div>
+            
+            <h3>Practical Applications:</h3>
+            <ul>
+                <li>Design SMS marketing campaigns for local businesses</li>
+                <li>Create effective push notification strategies</li>
+                <li>Develop mobile app marketing plans</li>
+                <li>Optimize mobile ad campaigns</li>
+                <li>Build comprehensive mobile marketing strategies</li>
+            </ul>
+            
+            <div class="nav-controls">
+                <button class="nav-btn prev-btn">Previous</button>
+                <button class="nav-btn next-btn">Next</button>
+            </div>
+        </div>
+        
+        <!-- Page 4: Weekly Schedule -->
+        <div id="schedule" class="page">
+            <h2>Weekly Curriculum</h2>
+            <div class="quote">
+                "The key to success is to focus on goals, not obstacles." - Unknown
+            </div>
+            
+            <div class="week-box">
+                <h3>Week 1 – April 21, 2025: Introduction to Mobile Marketing</h3>
+                <ul>
+                    <li>Importance of mobile-first strategies</li>
+                    <li>Introduction to mobile user experience (UX) and engagement principles</li>
+                    <li>Overview of mobile marketing trends and tools</li>
+                    <li><strong>Assessment:</strong> Mobile-friendly campaign evaluation</li>
+                </ul>
+            </div>
+            
+            <div class="week-box">
+                <h3>Week 2 – April 28, 2025: SMS Marketing & Push Notifications</h3>
+                <ul>
+                    <li>How SMS and push notification campaigns work</li>
+                    <li>Best practices for messaging, timing, and audience segmentation</li>
+                    <li>Hands-on: Designing an SMS campaign message</li>
+                    <li><strong>Assessment:</strong> Analyze effectiveness of a sample SMS marketing campaign</li>
+                </ul>
+            </div>
+            
+            <div class="week-box">
+                <h3>Week 3 – April 30, 2025: Mobile Ad Strategies & App Marketing</h3>
+                <ul>
+                    <li>Best practices for mobile advertising and ad placement</li>
+                    <li>Overview of app marketing techniques and App Store Optimization (ASO)</li>
+                    <li>Hands-on: Design a mobile ad and optimize an app listing for visibility</li>
+                    <li><strong>Assessment:</strong> Ad critique and app store listing analysis</li>
+                </ul>
+            </div>
+            
+            <div class="week-box">
+                <h3>Week 4 – May 5, 2025: Building a Mobile Marketing Strategy</h3>
+                <ul>
+                    <li>Integrating mobile strategies into a cohesive marketing plan</li>
+                    <li>Planning for user engagement and personalization</li>
+                    <li>Hands-on: Presenting a complete mobile marketing strategy</li>
+                    <li><strong>Assessment:</strong> Final project presentation and peer review</li>
+                </ul>
+            </div>
+            
+            <div class="nav-controls">
+                <button class="nav-btn prev-btn">Previous</button>
+                <button class="nav-btn next-btn">Next</button>
+            </div>
+        </div>
+        
+        <!-- Page 5: Portfolio Building -->
+        <div id="portfolio" class="page">
+            <h2>Portfolio Building & Career Preparation</h2>
+            <div class="quote">
+                "Your portfolio is your resume, but with proof." - Austin Kleon
+            </div>
+            
+            <p>After completing the core curriculum, you'll spend two weeks building your professional portfolio and preparing for career opportunities.</p>
+            
+            <div class="week-box">
+                <h3>Class 1 – May 7, 2025: Developing a Digital Marketing Portfolio – Part 1</h3>
+                <p><strong>What You'll Learn:</strong></p>
+                <ul>
+                    <li>Selecting and refining projects from the specialization track</li>
+                    <li>Writing structured case studies: goals, strategy, execution, and results</li>
+                    <li>Introduction to using free website builders (e.g., Wix, Carrd, or Notion)</li>
+                    <li>Organizing and formatting portfolio content</li>
+                </ul>
+                <p><strong>Activities:</strong></p>
+                <ul>
+                    <li>Choose portfolio pieces from completed assignments</li>
+                    <li>Draft a case study for at least one selected project</li>
+                    <li>Begin building portfolio site and uploading work samples</li>
+                </ul>
+            </div>
+            
+            <div class="week-box">
+                <h3>Class 2 – May 9, 2025: Developing a Digital Marketing Portfolio – Part 2 + Resume Optimization</h3>
+                <p><strong>What You'll Learn:</strong></p>
+                <ul>
+                    <li>Finalizing and polishing portfolio layout and content</li>
+                    <li>Resume writing fundamentals for marketing roles</li>
+                    <li>Tips for tailoring resumes to job descriptions</li>
+                    <li>Overview of free resume-building tools</li>
+                </ul>
+                <p><strong>Activities:</strong></p>
+                <ul>
+                    <li>Finalize portfolio projects and website</li>
+                    <li>Build or refine resume using resume builder</li>
+                    <li>Peer exchange for resume critique</li>
+                </ul>
+            </div>
+            
+            <div class="week-box">
+                <h3>Class 3 – May 14, 2025: Portfolio Showcase & Final Review</h3>
+                <p><strong>What You'll Learn:</strong></p>
+                <ul>
+                    <li>Presentation skills for digital marketing portfolios</li>
+                    <li>How to communicate the value of your work effectively</li>
+                </ul>
+                <p><strong>Activities:</strong></p>
+                <ul>
+                    <li>Present completed portfolios to class and instructors</li>
+                    <li>Receive structured feedback from peers and instructor</li>
+                    <li>Discuss next steps for using your portfolio in job applications or freelance work</li>
+                </ul>
+            </div>
+            
+            <div class="nav-controls">
+                <button class="nav-btn prev-btn">Previous</button>
+                <button class="nav-btn next-btn">Next</button>
+            </div>
+        </div>
+        
+        <!-- Page 6: Benefits -->
+        <div id="benefits" class="page">
+            <h2>Why Choose Mobile Marketing Specialization?</h2>
+            <div class="quote">
+                "Mobile is becoming not only the new digital hub but also the bridge to the physical world." - Jeremiah Owyang
+            </div>
+            
+            <h3>Industry Demand for Mobile Marketing Skills:</h3>
+            <div class="columns">
+                <div class="column">
+                    <h4>High-Growth Field</h4>
+                    <ul>
+                        <li>Mobile marketing jobs growing at 18% annually</li>
+                        <li>Average entry-level salary: $55-65K</li>
+                        <li>Experienced mobile marketers earn $85K+</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h4>Versatile Career Path</h4>
+                    <ul>
+                        <li>Work in-house or at agencies</li>
+                        <li>Freelance opportunities</li>
+                        <li>Apply skills to personal brands or startups</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Program Benefits Summary</h3>
+            <div class="benefits-list">
+                <div class="benefit-card">
+                    <div class="emoji">📱</div>
+                    <p>Master mobile-first strategies</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="emoji">🧠</div>
+                    <p>Learn from industry experts</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="emoji">🗂️</div>
+                    <p>Build a professional portfolio</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="emoji">📊</div>
+                    <p>Work on real-world projects</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="emoji">🚀</div>
+                    <p>Launch your marketing career</p>
+                </div>
+            </div>
+            
+            <div class="cta">
+                <h2>Limited Spots Available!</h2>
+                <p>Secure your place in this high-demand specialization track</p>
+                <p>Application deadline: April 15, 2025</p>
+            </div>
+            
+            <div class="nav-controls">
+                <button class="nav-btn prev-btn">Previous</button>
+                <button class="nav-btn next-btn">Next</button>
+            </div>
+        </div>
+        
+        <!-- Page 7: Expectations -->
+        <div id="expectations" class="page">
+            <h2>Program Expectations & Policies</h2>
+            
+            <div class="quote">
+                "Excellence is not a skill. It's an attitude." - Ralph Marston
+            </div>
+            
+            <h3>Participant Expectations:</h3>
+            <ul>
+                <li>To attend all training sessions regularly at the agreed-upon times</li>
+                <li>To conform to the norms and expectations of Club Stride Inc</li>
+                <li>To notify coordinators (in advance) on days you will be late or absent</li>
+                <li>To notify your coordinator should any problems or concerns arise</li>
+                <li>To maintain the confidentiality of Club Stride Inc</li>
+                <li>To work hard to fulfill all the requirements of the training</li>
+                <li>To always maintain professional language and behavior</li>
+                <li>To respond to all communications promptly, especially regarding training conduct and performance</li>
+                <li>To engage with training materials, attend in a focused setting, and actively participate</li>
+                <li>To use video and audio features as required in virtual meetings</li>
+            </ul>
+            
+            <div class="cta">
+                <h2>Attendance Policy</h2>
+                <p>Consistent attendance and punctuality are essential for program success</p>
+            </div>
+            
+            <h3>Absence Policy:</h3>
+            <div class="columns">
+                <div class="column">
+                    <ul>
+                        <li><strong>Unexcused Absence #1:</strong> Docked one full session's pay</li>
+                        <li><strong>Unexcused Absence #2:</strong> Docked one full session's pay plus a warning</li>
+                        <li><strong>Unexcused Absence #3:</strong> Dismissal from the internship</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h4>Tardiness Policy:</h4>
+                    <ul>
+                        <li><strong>Tardies over 20 minutes:</strong> $100 deduction per session</li>
+                        <li><strong>Tardies under 20 minutes:</strong> $50 deduction per session (will not count as an unexcused absence)</li>
+                        <li><strong>Three instances of tardiness (20+ minutes):</strong> Will result in dismissal</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Important Dates:</h3>
+            <ul>
+                <li><strong>Program Start:</strong> April 21, 2025</li>
+                <li><strong>Core Curriculum:</strong> April 21 - May 5, 2025</li>
+                <li><strong>Portfolio Development:</strong> May 7 - May 14, 2025</li>
+                <li><strong>Final Showcase:</strong> May 14, 2025</li>
+            </ul>
+            
+            <div class="nav-controls">
+                <button class="nav-btn prev-btn">Previous</button>
+                <button class="nav-btn next-btn" disabled>Next</button>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 Club Stride Inc. | Mobile Marketing Specialization Track</p>
+            <p>www.clubstride.org | (707) 204-3160</p>
+        </footer>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Navigation functionality
+        const pages = document.querySelectorAll('.page');
+        const tabs = document.querySelectorAll('.nav-tab');
+        const prevBtns = document.querySelectorAll('.prev-btn');
+        const nextBtns = document.querySelectorAll('.next-btn');
+        const progressBar = document.getElementById('progressBar');
+        
+        let currentPageIndex = 0;
+        
+        // Update progress bar
+        function updateProgress() {
+            const progress = ((currentPageIndex + 1) / pages.length) * 100;
+            progressBar.style.width = progress + '%';
+        }
+        
+        // Initialize progress
+        updateProgress();
+        
+        // Navigate to a specific page
+        function navigateToPage(index) {
+            // Hide all pages and deactivate all tabs
+            pages.forEach(page => page.classList.remove('active'));
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show the selected page and activate its tab
+            pages[index].classList.add('active');
+            tabs[index].classList.add('active');
+            
+            // Update current page index
+            currentPageIndex = index;
+            
+            // Update progress
+            updateProgress();
+        }
+        
+        // Set up tab click handlers
+        tabs.forEach((tab, index) => {
+            tab.addEventListener('click', () => {
+                navigateToPage(index);
+            });
+        });
+        
+        // Set up prev/next button handlers
+        prevBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (currentPageIndex > 0) {
+                    navigateToPage(currentPageIndex - 1);
+                }
+            });
+        });
+        
+        nextBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (currentPageIndex < pages.length - 1) {
+                    navigateToPage(currentPageIndex + 1);
+                }
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' && currentPageIndex < pages.length - 1) {
+                navigateToPage(currentPageIndex + 1);
+            } else if (e.key === 'ArrowLeft' && currentPageIndex > 0) {
+                navigateToPage(currentPageIndex - 1);
+            }
+        });
+    </script>
+</body>
+</html>
